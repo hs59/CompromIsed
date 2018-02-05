@@ -13,12 +13,12 @@ public class main {
         test.singleSite(name);
 
         // Test SystemBreaches.java
-        SystemBreaches test2 = new SystemBreaches();
-        test2.SysBreaches();
+        //SystemBreaches test2 = new SystemBreaches();
+        //test2.SysBreaches();
 
         // Test SystemDataClasses.java
-        SystemDataClasses test3 = new SystemDataClasses();
-        test3.DataClasses();
+        //SystemDataClasses test3 = new SystemDataClasses();
+        //test3.DataClasses();
 
 
     }

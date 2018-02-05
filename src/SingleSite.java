@@ -1,11 +1,13 @@
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import com.google.gson.*;
 
 /**     Getting data from a single breached site.
  *
@@ -43,9 +45,17 @@ public class SingleSite {
 
             // Test reponseCode - continue if good
             if(responseCode != 200) {
-                throw new RuntimeException("Failed: HTTP error code : "
-                        + conn.getResponseCode());
+                if(responseCode == 404) {
+                    System.out.println("Not found - the account could not be found and has " +
+                            "therefore not been pwned.");
+                    System.exit(1);
+                }
+                else {
+                    throw new RuntimeException("Failed: HTTP error code : "
+                            + conn.getResponseCode());
+                }
             }
+
             // BufferedReader object w/ new InputStreamReader
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
             // Variable to hold the output from server
@@ -56,6 +66,7 @@ public class SingleSite {
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
             }
+
             // Disconect
             conn.disconnect();
         } catch (MalformedURLException e) {
@@ -65,6 +76,14 @@ public class SingleSite {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
+        String json = "{'Title':'Adobe'}";
+        Gson gson = new Gson();
+        SingleSite single = gson.fromJson(json, SingleSite.class);
+
+        System.out.println("\nGood " + single);
 
     }
 
