@@ -17,7 +17,7 @@ public class main {
         Scanner input = new Scanner(System.in);
         String name = input.nextLine();
         SingleSite test = new SingleSite();
-        test.singleSite(name);
+        test.Connection(name);
 
         // Test SystemBreaches.java
         //SystemBreaches test2 = new SystemBreaches();
@@ -27,16 +27,9 @@ public class main {
         //SystemDataClasses test3 = new SystemDataClasses();
         //test3.DataClasses();
 
-
-
-        SingleSite HELLO = new SingleSite();
         //String title = HELLO.getObj().get("Domain").getAsString();
         //System.out.println(title);
-        System.out.println("Below is your input: " +
-                "\n- Title: " + HELLO.getTitle().toString() +
-                "\n- Name: " + HELLO.getName().toString() +
-                "\n- Domain: " + HELLO.getDomain().toString() +
-                "\n- Breach Date: " + HELLO.getBreachDate().toString());
+
 
 
 

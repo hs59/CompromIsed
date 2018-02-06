@@ -29,7 +29,7 @@ public class SingleSite {
     private boolean IsSpamList;
     private JsonObject Object;
 
-    public static void singleSite(String name) {
+    public static void Connection(String name) {
         try {
             // New URL object with the URL set - next few lines are all using native java lib
             URL url = new URL("https://haveibeenpwned.com/api/v2/breach/" + name);
@@ -60,31 +60,19 @@ public class SingleSite {
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
             JsonObject rootobj = root.getAsJsonObject();
-            SingleSite test = new SingleSite();
-            test.setObj(rootobj);
 
-            String domain = rootobj.get("Domain").getAsString();
-            test.setDomain(domain);
+            SingleSite hhh = new SingleSite();
 
             String title = rootobj.get("Title").getAsString();
-            test.setTitle(title);
+            hhh.setTitle(title);
+            String domain = rootobj.get("Domain").getAsString();
+            String breachDate = rootobj.get("BreachDate").getAsString();
+            String pwnCount = rootobj.get("PwnCount").getAsString();
+            Boolean isVerified = rootobj.get("IsVerified").getAsBoolean();
 
-            String Name = rootobj.get("Name").getAsString();
-            test.setName(Name);
-
-            String BreachDate = rootobj.get("BreachDate").getAsString();
-            test.setBreachDate(BreachDate);
-
-            // BufferedReader object w/ new InputStreamReader
-            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-            // Variable to hold the output from server
-            String output;
-            // Output..
-            System.out.println("Output from Server.. \n");
-            // Print..
-            while ((output = br.readLine()) != null) {
-                System.out.println(output);
-            }
+            Messages msg = new Messages();
+            msg.singleSite1();
+            formatStrings(title, domain, breachDate, pwnCount, isVerified);
 
             // Disconect from connection
             conn.disconnect();
@@ -98,10 +86,22 @@ public class SingleSite {
         }
     }
 
-    /**
-     *  Getters and setters for variables
-     * @param obj
-     */
+    public static void formatStrings(String title, String domain, String breachDate,
+                                        String pwnCount, Boolean isVerified) {
+        String answer = "";
+        if(isVerified == true) {
+            answer = "Yes, it is verified.";
+        }
+        else {
+            answer = "No, it is not verified.";
+        }
+
+        System.out.println("- Title: " + title);
+        System.out.println("- Domain: " + domain);
+        System.out.println("- When was it breached?: " + breachDate);
+        System.out.println("- Pwn Count: " + pwnCount);
+        System.out.println("- Is it verified?: " + answer);
+    }
 
     public void setObj(JsonObject obj) {
         Object = obj;
