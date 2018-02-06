@@ -27,11 +27,18 @@ public class main {
         //SystemDataClasses test3 = new SystemDataClasses();
         //test3.DataClasses();
 
-        String sURL = "http://freegeoip.net/json/"; //just a string
 
-        // Connect to the URL using java's native library
-        URL url = new URL(sURL);
-        HttpURLConnection request = (HttpURLConnection) url.openConnection();
-        request.connect();
+
+        SingleSite HELLO = new SingleSite();
+        //String title = HELLO.getObj().get("Domain").getAsString();
+        //System.out.println(title);
+        System.out.println("Below is your input: " +
+                "\n- Title: " + HELLO.getTitle().toString() +
+                "\n- Name: " + HELLO.getName().toString() +
+                "\n- Domain: " + HELLO.getDomain().toString() +
+                "\n- Breach Date: " + HELLO.getBreachDate().toString());
+
+
+
     }
 }

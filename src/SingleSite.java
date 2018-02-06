@@ -27,6 +27,7 @@ public class SingleSite {
     private boolean IsActive;
     private boolean IsRetired;
     private boolean IsSpamList;
+    private JsonObject Object;
 
     public static void singleSite(String name) {
         try {
@@ -59,7 +60,20 @@ public class SingleSite {
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
             JsonObject rootobj = root.getAsJsonObject();
+            SingleSite test = new SingleSite();
+            test.setObj(rootobj);
+
+            String domain = rootobj.get("Domain").getAsString();
+            test.setDomain(domain);
+
             String title = rootobj.get("Title").getAsString();
+            test.setTitle(title);
+
+            String Name = rootobj.get("Name").getAsString();
+            test.setName(Name);
+
+            String BreachDate = rootobj.get("BreachDate").getAsString();
+            test.setBreachDate(BreachDate);
 
             // BufferedReader object w/ new InputStreamReader
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
@@ -74,7 +88,6 @@ public class SingleSite {
 
             // Disconect from connection
             conn.disconnect();
-            System.out.println(title);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -87,10 +100,18 @@ public class SingleSite {
 
     /**
      *  Getters and setters for variables
+     * @param obj
      */
-    public String getTitle() {
-        return Title;
+
+    public void setObj(JsonObject obj) {
+        Object = obj;
     }
+
+    public JsonObject getObj() {
+        return Object;
+    }
+
+    public String getTitle() { return Title; }
 
     public void setTitle(String title) {
         Title = title;
