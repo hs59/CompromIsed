@@ -1,13 +1,11 @@
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import com.google.gson.*;
+import org.json.simple.JSONObject;
 
 /**     Getting data from a single breached site.
  *
@@ -32,7 +30,7 @@ public class SingleSite {
 
     public static void singleSite(String name) {
         try {
-            // New URL object with the URL set
+            // New URL object with the URL set - next few lines are all using native java lib
             URL url = new URL("https://haveibeenpwned.com/api/v2/breach/" + name);
             // New HttpURLConnection object, opening the url
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -42,6 +40,7 @@ public class SingleSite {
             conn.setRequestMethod("GET");
             // Variable to hold the reponse code
             int responseCode = conn.getResponseCode();
+            conn.connect();
 
             // Test reponseCode - continue if good
             if(responseCode != 200) {
@@ -56,6 +55,12 @@ public class SingleSite {
                 }
             }
 
+            // Convert to a JSON object to print data
+            JsonParser jp = new JsonParser();
+            JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
+            JsonObject rootobj = root.getAsJsonObject();
+            String title = rootobj.get("Title").getAsString();
+
             // BufferedReader object w/ new InputStreamReader
             BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
             // Variable to hold the output from server
@@ -67,8 +72,10 @@ public class SingleSite {
                 System.out.println(output);
             }
 
-            // Disconect
+            // Disconect from connection
             conn.disconnect();
+            System.out.println(title);
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
@@ -76,15 +83,6 @@ public class SingleSite {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-        String json = "{'Title':'Adobe'}";
-        Gson gson = new Gson();
-        SingleSite single = gson.fromJson(json, SingleSite.class);
-
-        System.out.println("\nGood " + single);
-
     }
 
     /**
