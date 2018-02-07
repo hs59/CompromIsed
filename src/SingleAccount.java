@@ -46,13 +46,7 @@ public class SingleAccount {
             JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
             JsonObject rootobj = root.getAsJsonObject();
 
-            SingleSite hhh = new SingleSite();
-
-            String title = rootobj.get("Title").getAsString();
-            String domain = rootobj.get("Domain").getAsString();
-            String breachDate = rootobj.get("BreachDate").getAsString();
-            String pwnCount = rootobj.get("PwnCount").getAsString();
-            Boolean isVerified = rootobj.get("IsVerified").getAsBoolean();
+            // Do some stuff here
 
             // Disconect from connection
             conn.disconnect();
