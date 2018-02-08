@@ -60,17 +60,13 @@ public class SingleSite {
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
             JsonObject rootobj = root.getAsJsonObject();
-
-
-
+            
             String title = rootobj.get("Title").getAsString();
             String domain = rootobj.get("Domain").getAsString();
             String breachDate = rootobj.get("BreachDate").getAsString();
             String pwnCount = rootobj.get("PwnCount").getAsString();
             Boolean isVerified = rootobj.get("IsVerified").getAsBoolean();
 
-            Messages msg = new Messages();
-            msg.singleSite1();
             formatStrings(title, domain, breachDate, pwnCount, isVerified);
 
             // Disconect from connection
