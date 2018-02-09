@@ -56,13 +56,10 @@ public class SingleSite {
                             + conn.getResponseCode());
                 }
             }
-
             // Convert to a JSON object to print data
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
             JsonObject rootobj = root.getAsJsonObject();
-
-
 
             String title = rootobj.get("Title").getAsString();
             String domain = rootobj.get("Domain").getAsString();

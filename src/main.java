@@ -9,16 +9,8 @@ public class main {
 
         Conditionals con = new Conditionals();
         con.WelcomeDecision();
-
-
-
-
-
-
-
-
-
-
+    }
+    public static void date() {
 
     }
 }

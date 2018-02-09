@@ -1,6 +1,4 @@
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 
 import java.io.IOException;
@@ -42,10 +40,9 @@ public class SingleAccount {
                 }
             }
 
-            // Convert to a JSON object to print data
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
-            JsonObject rootobj = root.getAsJsonObject();
+            JsonArray rootobj = root.getAsJsonArray();
 
             // Do some stuff here
 
