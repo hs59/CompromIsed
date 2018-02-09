@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0dac901f-a973-4d71-9856-12bded958a00" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Messages.java" afterPath="$PROJECT_DIR$/src/Messages.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SingleSite.java" afterPath="$PROJECT_DIR$/src/SingleSite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.java" afterPath="$PROJECT_DIR$/src/main.java" />
-    </list>
+    <list default="true" id="0dac901f-a973-4d71-9856-12bded958a00" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -149,9 +144,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="130" />
-    <option name="y" value="78" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="74" />
+    <option name="y" value="27" />
     <option name="width" value="1778" />
     <option name="height" value="958" />
   </component>
@@ -348,7 +343,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="130" y="78" width="1778" height="958" extended-state="0" />
+    <frame x="74" y="27" width="1778" height="958" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
