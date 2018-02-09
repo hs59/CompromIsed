@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import org.json.simple.JSONObject;
 
 /**     Getting data from a single breached site.
@@ -29,7 +30,7 @@ public class SingleSite {
     private boolean IsSpamList;
     private JsonObject Object;
 
-    public static void Connection(String name) {
+    public void Connection(String name) {
         try {
             // New URL object with the URL set - next few lines are all using native java lib
             URL url = new URL("https://haveibeenpwned.com/api/v2/breach/" + name);
@@ -60,7 +61,9 @@ public class SingleSite {
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
             JsonObject rootobj = root.getAsJsonObject();
-            
+
+
+
             String title = rootobj.get("Title").getAsString();
             String domain = rootobj.get("Domain").getAsString();
             String breachDate = rootobj.get("BreachDate").getAsString();

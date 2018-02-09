@@ -16,12 +16,14 @@ public class Conditionals {
 
         if(ans == 1) {
             msg.Domain();
-            String dom = input.nextLine();
+            Scanner scan = new Scanner(System.in);
+            String dom = scan.nextLine();
             site.Connection(dom);
         }
         else if (ans == 2) {
             msg.Email();
-            String em = input.nextLine();
+            Scanner scan2 = new Scanner(System.in);
+            String em = scan2.nextLine();
             acc.Connection(em);
         }
         else {
