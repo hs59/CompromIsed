@@ -83,7 +83,7 @@ public class SingleSite {
 
     public static void formatStrings(String title, String domain, String breachDate,
                                         String pwnCount, Boolean isVerified) {
-        String answer = "";
+        String answer = " ";
         if(isVerified == true) {
             answer = "Yes, it is verified.";
         }

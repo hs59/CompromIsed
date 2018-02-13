@@ -1,5 +1,6 @@
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import org.json.simple.JSONArray;
 
 import java.io.IOException;
@@ -10,11 +11,17 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  Similar to SingleSite, but for an email address instead of a website
  */
 public class SingleAccount {
+
+    private List<String> titleList;
+    private List<String> domainList;
+    private List<String> breachDateList;
+
     public static void Connection(String name) {
         try {
             // New URL object with the URL set - next few lines are all using native java lib
@@ -46,16 +53,13 @@ public class SingleAccount {
             JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
             JsonArray rootobj = root.getAsJsonArray();
 
-            ArrayList<String> test = new ArrayList<>();
+            SingleAccount helper = new SingleAccount();
+            helper.titleList(rootobj);
+            helper.domainList(rootobj);
+            helper.breachDateList(rootobj);
 
-            for (int i = 0; i < rootobj.size() ; i++) {
-                JsonObject propertiesJson = (JsonObject) rootobj.get(i);
-                String value = propertiesJson.get("Title").getAsString();
+            System.out.println(helper.getBreachDateList());
 
-                test.add(value);
-            }
-
-            System.out.println(test);
 
 
             // Disconect from connection
@@ -68,5 +72,64 @@ public class SingleAccount {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void titleList(JsonArray rootobj) {
+        List<String> title = new ArrayList<>();
+        titleList = title;
+        for (int i = 0; i < rootobj.size() ; i++) {
+            JsonObject propertiesJson = (JsonObject) rootobj.get(i);
+            String value = propertiesJson.get("Title").getAsString();
+            title.add(value);
+        }
+    }
+
+    public void domainList(JsonArray rootobj) {
+        List<String> domain = new ArrayList<>();
+        domainList = domain;
+        for (int i = 0; i < rootobj.size() ; i++) {
+            JsonObject propertiesJson = (JsonObject) rootobj.get(i);
+            String value = propertiesJson.get("Domain").getAsString();
+            domain.add(value);
+        }
+    }
+
+    public void breachDateList(JsonArray rootobj) {
+        List<String> breach = new ArrayList<>();
+        breachDateList = breach;
+        for (int i = 0; i < rootobj.size() ; i++) {
+            JsonObject propertiesJson = (JsonObject) rootobj.get(i);
+            String value = propertiesJson.get("BreachDate").getAsString();
+            breach.add(value);
+        }
+    }
+
+    public static void formatStrings(String title, String domain, String breachDate,
+                                     String pwnCount, Boolean isVerified) {
+        String answer = " ";
+        if(isVerified == true) {
+            answer = "Yes, it is verified.";
+        }
+        else {
+            answer = "No, it is not verified.";
+        }
+
+        System.out.println("- Title: " + title);
+        System.out.println("- Domain: " + domain);
+        System.out.println("- When was it breached?: " + breachDate);
+        System.out.println("- Pwn Count: " + pwnCount);
+        System.out.println("- Is it verified?: " + answer);
+    }
+
+    public List<String> getTitleList() {
+        return titleList;
+    }
+
+    public List<String> getDomainList() {
+        return domainList;
+    }
+
+    public List<String> getBreachDateList() {
+        return breachDateList;
     }
 }
