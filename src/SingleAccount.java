@@ -1,5 +1,6 @@
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import org.json.simple.JSONArray;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  *  Similar to SingleSite, but for an email address instead of a website
@@ -44,7 +46,17 @@ public class SingleAccount {
             JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
             JsonArray rootobj = root.getAsJsonArray();
 
-            // Do some stuff here
+            ArrayList<String> test = new ArrayList<>();
+
+            for (int i = 0; i < rootobj.size() ; i++) {
+                JsonObject propertiesJson = (JsonObject) rootobj.get(i);
+                String value = propertiesJson.get("Title").getAsString();
+
+                test.add(value);
+            }
+
+            System.out.println(test);
+
 
             // Disconect from connection
             conn.disconnect();
