@@ -61,12 +61,15 @@ public class SingleSite {
             JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
             JsonObject rootobj = root.getAsJsonObject();
 
+            // Get the selection of properties from the JSON object and set them
+            // as individual strings/booleans
             String title = rootobj.get("Title").getAsString();
             String domain = rootobj.get("Domain").getAsString();
             String breachDate = rootobj.get("BreachDate").getAsString();
             String pwnCount = rootobj.get("PwnCount").getAsString();
             Boolean isVerified = rootobj.get("IsVerified").getAsBoolean();
 
+            // Format everything nicely
             formatStrings(title, domain, breachDate, pwnCount, isVerified);
 
             // Disconect from connection

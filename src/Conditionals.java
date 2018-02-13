@@ -5,6 +5,7 @@ public class Conditionals {
     private String domain;
     private String email;
 
+
     public static void WelcomeDecision() {
         Messages msg = new Messages();
 
@@ -14,16 +15,19 @@ public class Conditionals {
         SingleAccount acc = new SingleAccount();
         SingleSite site = new SingleSite();
 
+        String dom = "";
+        String em = "";
+
         if(ans == 1) {
             msg.Domain();
             Scanner scan = new Scanner(System.in);
-            String dom = scan.nextLine();
+            dom = scan.nextLine();
             site.Connection(dom);
         }
         else if (ans == 2) {
             msg.Email();
             Scanner scan2 = new Scanner(System.in);
-            String em = scan2.nextLine();
+            em = scan2.nextLine();
             acc.Connection(em);
         }
         else {
@@ -33,7 +37,6 @@ public class Conditionals {
                 ans = input.nextInt();
             }
         }
-
     }
     public String getDomain() {
         return domain;

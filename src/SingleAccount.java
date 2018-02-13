@@ -49,18 +49,34 @@ public class SingleAccount {
                 }
             }
 
+            // JsonParser object to get the JSON and conver it to a JSON Array
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
             JsonArray rootobj = root.getAsJsonArray();
 
+            // Processing the titles, domains, and breach dates
             SingleAccount helper = new SingleAccount();
             helper.titleList(rootobj);
             helper.domainList(rootobj);
             helper.breachDateList(rootobj);
 
-            System.out.println(helper.getBreachDateList());
+            // Get the size of the breachdatelist. This will tell us how many times the
+            // email has been breached
+            int size = helper.getBreachDateList().size();
 
+            // Get the list of titles, but format them to remove the [ ]
+            String titles = helper.getTitleList().toString()
+                    .replace("[", "")
+                    .replace("]","");
 
+            // Get the list of breach dates, but format them to remove the [ ]
+            String breaches = helper.getBreachDateList().toString()
+                    .replace("[", "")
+                    .replace("]","");
+
+            // SingleAccount object to format everything nicely
+            SingleAccount printResults = new SingleAccount();
+            printResults.formatStrings(size,titles);
 
             // Disconect from connection
             conn.disconnect();
@@ -74,9 +90,12 @@ public class SingleAccount {
         }
     }
 
+    // Process the JsonArray and get all the Titles from it
     public void titleList(JsonArray rootobj) {
         List<String> title = new ArrayList<>();
         titleList = title;
+        // Loop through the array to get each element that matches the get("String")
+        // and add to the ArrayList
         for (int i = 0; i < rootobj.size() ; i++) {
             JsonObject propertiesJson = (JsonObject) rootobj.get(i);
             String value = propertiesJson.get("Title").getAsString();
@@ -84,9 +103,12 @@ public class SingleAccount {
         }
     }
 
+    // Process the JsonArray and get all the Domains from it
     public void domainList(JsonArray rootobj) {
         List<String> domain = new ArrayList<>();
         domainList = domain;
+        // Loop through the array to get each element that matches the get("String")
+        // and add to the ArrayList
         for (int i = 0; i < rootobj.size() ; i++) {
             JsonObject propertiesJson = (JsonObject) rootobj.get(i);
             String value = propertiesJson.get("Domain").getAsString();
@@ -94,9 +116,12 @@ public class SingleAccount {
         }
     }
 
+    // Process the JsonArray and get all the Breach Dates from it
     public void breachDateList(JsonArray rootobj) {
         List<String> breach = new ArrayList<>();
         breachDateList = breach;
+        // Loop through the array to get each element that matches the get("String")
+        // and add to the ArrayList
         for (int i = 0; i < rootobj.size() ; i++) {
             JsonObject propertiesJson = (JsonObject) rootobj.get(i);
             String value = propertiesJson.get("BreachDate").getAsString();
@@ -104,21 +129,11 @@ public class SingleAccount {
         }
     }
 
-    public static void formatStrings(String title, String domain, String breachDate,
-                                     String pwnCount, Boolean isVerified) {
-        String answer = " ";
-        if(isVerified == true) {
-            answer = "Yes, it is verified.";
-        }
-        else {
-            answer = "No, it is not verified.";
-        }
-
-        System.out.println("- Title: " + title);
-        System.out.println("- Domain: " + domain);
-        System.out.println("- When was it breached?: " + breachDate);
-        System.out.println("- Pwn Count: " + pwnCount);
-        System.out.println("- Is it verified?: " + answer);
+    // Make all of this info look nice
+    public void formatStrings(int breaches, String titles) {
+        System.out.println("- Number of breaches: " + breaches);
+        System.out.println("- Websites: " + titles);
+        System.out.println("- Other info: ");
     }
 
     public List<String> getTitleList() {
