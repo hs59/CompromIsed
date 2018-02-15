@@ -21,6 +21,7 @@ public class SingleAccount {
     private List<String> titleList;
     private List<String> domainList;
     private List<String> breachDateList;
+    private List<Boolean> verifiedList;
 
     public static void Connection(String name) {
         try {
@@ -59,6 +60,7 @@ public class SingleAccount {
             helper.titleList(rootobj);
             helper.domainList(rootobj);
             helper.breachDateList(rootobj);
+            helper.verified(rootobj);
 
             // Get the size of the breachdatelist. This will tell us how many times the
             // email has been breached
@@ -76,7 +78,7 @@ public class SingleAccount {
 
             // SingleAccount object to format everything nicely
             SingleAccount printResults = new SingleAccount();
-            printResults.formatStrings(size,titles);
+            printResults.formatStrings(size,titles,helper.getVerifiedList());
 
             // Disconect from connection
             conn.disconnect();
@@ -129,11 +131,24 @@ public class SingleAccount {
         }
     }
 
+    // Process the JsonArray and get the boolean of IsVerified from each
+    public void verified(JsonArray rootobj) {
+        List<Boolean> verify = new ArrayList<>();
+        verifiedList = verify;
+        // Loop through the array to get each element that matches the get("String")
+        // and add to the ArrayList
+        for (int i = 0; i < rootobj.size(); i++) {
+            JsonObject propertiesJson = (JsonObject) rootobj.get(i);
+            boolean value = propertiesJson.get("IsVerified").getAsBoolean();
+            verify.add(value);
+        }
+    }
+
     // Make all of this info look nice
-    public void formatStrings(int breaches, String titles) {
+    public void formatStrings(int breaches, String titles, List<Boolean> verified) {
         System.out.println("- Number of breaches: " + breaches);
         System.out.println("- Websites: " + titles);
-        System.out.println("- Other info: ");
+        System.out.println("- Are they verified?: " + verified);
     }
 
     public List<String> getTitleList() {
@@ -147,4 +162,6 @@ public class SingleAccount {
     public List<String> getBreachDateList() {
         return breachDateList;
     }
+
+    public List<Boolean> getVerifiedList() { return verifiedList; }
 }
